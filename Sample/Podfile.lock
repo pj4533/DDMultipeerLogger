@@ -1,0 +1,22 @@
+PODS:
+  - CocoaLumberjack (1.7.0):
+    - CocoaLumberjack/Core
+    - CocoaLumberjack/Extensions
+  - CocoaLumberjack/Core (1.7.0)
+  - CocoaLumberjack/Extensions (1.7.0):
+    - CocoaLumberjack/Core
+  - DDMultipeerLogger (0.0.1):
+    - CocoaLumberjack
+
+DEPENDENCIES:
+  - DDMultipeerLogger (from `../`)
+
+EXTERNAL SOURCES:
+  DDMultipeerLogger:
+    :path: ../
+
+SPEC CHECKSUMS:
+  CocoaLumberjack: be87113f649942f020a37c061c58009b6ee5ff68
+  DDMultipeerLogger: 5301c1adf3ac9cb064db99d62b39a984ce677d2e
+
+COCOAPODS: 0.28.0
