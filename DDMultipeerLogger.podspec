@@ -7,10 +7,9 @@ Pod::Spec.new do |s|
   s.license      = { :type => 'MIT', :file => 'LICENSE' }
   s.author       = { "PJ Gray" => "pj4533@gmail.com" }
   s.source       = { :git => "https://github.com/pj4533/DDMultipeerLogger.git", :tag => s.version.to_s }
-  s.platform     = :ios, '7.0'
+  s.platform     = :ios
   s.source_files = 'DDMultipeerLogger'
   s.requires_arc = true  
-  s.ios.deployment_target = '7.0'
   s.dependency 'CocoaLumberjack'
-  s.framework    = 'MultipeerConnectivity'
+  s.weak_frameworks    = 'MultipeerConnectivity'
 end
