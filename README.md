@@ -25,9 +25,11 @@ Add the logger as you would any other custom logger.  All the Multipeer connecti
 To run the sample
 
 ```
-	pod install
-
+pod install
 ```
+
+Then build and log some messages while running [DDMultipeerConsole](https://github.com/pj4533/DDMultipeerConsole) on another device.
+
 
 ## Contact
 
