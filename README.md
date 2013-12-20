@@ -16,6 +16,15 @@ Add the logger as you would any other custom logger.  All the Multipeer connecti
 	[DDLog addLogger:[[DDMultipeerLogger alloc] initWithPeerDisplayName:@"My Sweet Custom Name"]];
 ```
 
+## Sample
+
+To run the sample
+
+```
+	pod install
+
+```
+
 ## Contact
 
 PJ Gray
