@@ -3,6 +3,10 @@ DDMultipeerLogger
 
 A logger for [CocoaLumberjack](https://github.com/CocoaLumberjack/CocoaLumberjack) that uses multipeer connectivity
 
+Pair with [DDMultipeerConsole](https://github.com/pj4533/DDMultipeerConsole) for displaying log messages on a remote device.
+
+![Screenshot](ddmultipeerconsole.gif)
+
 ## Usage
 
 Add the logger as you would any other custom logger.  All the Multipeer connectivity code is hidden behind the logger.
