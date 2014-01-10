@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name         = "DDMultipeerLogger"
-  s.version      = "0.0.1"
+  s.version      = "0.0.2"
   s.summary      = "A logger for CocoaLumberjack that uses multipeer connectivity."
   s.homepage     = "https://github.com/pj4533/DDMultipeerLogger"
 
