@@ -5,11 +5,14 @@
 #import "DDMultipeerLogger.h"
 #import <MultipeerConnectivity/MultipeerConnectivity.h>
 
-@interface DDMultipeerLogger () <MCAdvertiserAssistantDelegate, MCSessionDelegate,UIAlertViewDelegate> {
+@interface DDMultipeerLogger () <MCNearbyServiceAdvertiserDelegate,MCAdvertiserAssistantDelegate, MCSessionDelegate,UIAlertViewDelegate> {
     MCPeerID *_myDevicePeerId;
     MCSession *_session;
     MCAdvertiserAssistant *_advertiserAssistant;
+    MCNearbyServiceAdvertiser *_nearbyAdvertiser;
     NSString* _displayName;
+    
+    BOOL _useAssistant;
 }
 
 @end
@@ -26,16 +29,27 @@
         _session = [[MCSession alloc] initWithPeer:_myDevicePeerId securityIdentity:nil encryptionPreference:MCEncryptionNone];
         _session.delegate = self;
         
-        _advertiserAssistant = [[MCAdvertiserAssistant alloc] initWithServiceType:@"debugee-service" discoveryInfo:nil session:_session];
-        [_advertiserAssistant start];
+        if (_useAssistant) {
+            _advertiserAssistant = [[MCAdvertiserAssistant alloc] initWithServiceType:@"debugee-service" discoveryInfo:nil session:_session];
+            [_advertiserAssistant start];
+        } else {
+            _nearbyAdvertiser = [[MCNearbyServiceAdvertiser alloc] initWithPeer:_myDevicePeerId discoveryInfo:nil serviceType:@"debugee-service"];
+            _nearbyAdvertiser.delegate = self;
+            [_nearbyAdvertiser startAdvertisingPeer];
+        }
     }
     return self;
 }
 
-- (id)initWithPeerDisplayName:(NSString*) name {
+- (id)initWithPeerDisplayName:(NSString*) name withAssistant:(BOOL) useAssistant {
+    _useAssistant = useAssistant;
     _displayName = name;
 
     return [self init];
+}
+
+- (id)initWithPeerDisplayName:(NSString*) name {
+    return [self initWithPeerDisplayName:name withAssistant:YES];
 }
 
 #pragma mark - DDLogger
@@ -46,6 +60,15 @@
                                      };
     NSData* logMessageAsData = [NSKeyedArchiver archivedDataWithRootObject:logMessageDict];
     [_session sendData:logMessageAsData toPeers:_session.connectedPeers withMode:MCSessionSendDataReliable error:nil];
+}
+
+#pragma mark - MCNearbyServiceAdvertiserDelegate
+
+- (void)advertiser:(MCNearbyServiceAdvertiser *)advertiser didReceiveInvitationFromPeer:(MCPeerID *)peerID withContext:(NSData *)context invitationHandler:(void(^)(BOOL accept, MCSession *session))invitationHandler
+{
+    if (invitationHandler) {
+        invitationHandler(YES, _session);
+    }
 }
 
 #pragma mark - MCSessionDelegate Methods
